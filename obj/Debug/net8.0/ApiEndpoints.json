@@ -43,6 +43,43 @@
     "EndpointName": "course"
   },
   {
+    "ContainingType": "classroomApi.Controllers.PostController",
+    "Method": "GetPostsForCourse",
+    "RelativePath": "api/course/{courseID}/Post",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "courseID",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "classroomApi.Controllers.PostController",
+    "Method": "CreatePost",
+    "RelativePath": "api/course/{courseID}/Post",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "courseID",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "postBody",
+        "Type": "Classroom.Models.Post",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
     "ContainingType": "classroomApi.Controllers.WeatherForecastController",
     "Method": "Get",
     "RelativePath": "WeatherForecast",

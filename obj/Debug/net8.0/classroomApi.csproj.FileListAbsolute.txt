@@ -134,3 +134,10 @@ M:\c# library\classroomApi\obj\Debug\net8.0\refint\classroomApi.dll
 M:\c# library\classroomApi\obj\Debug\net8.0\classroomApi.pdb
 M:\c# library\classroomApi\obj\Debug\net8.0\classroomApi.genruntimeconfig.cache
 M:\c# library\classroomApi\obj\Debug\net8.0\ref\classroomApi.dll
+M:\c# library\classroomApi\bin\Debug\net8.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll
+M:\c# library\classroomApi\bin\Debug\net8.0\Microsoft.AspNetCore.Authorization.dll
+M:\c# library\classroomApi\bin\Debug\net8.0\Microsoft.AspNetCore.Metadata.dll
+M:\c# library\classroomApi\bin\Debug\net8.0\Microsoft.Extensions.DependencyInjection.Abstractions.dll
+M:\c# library\classroomApi\bin\Debug\net8.0\Microsoft.Extensions.Logging.Abstractions.dll
+M:\c# library\classroomApi\bin\Debug\net8.0\Microsoft.Extensions.Options.dll
+M:\c# library\classroomApi\obj\Debug\net8.0\classroomApi.sourcelink.json
