@@ -1,15 +1,12 @@
 ﻿using Classroom.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
-using Classroom.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 
 
 namespace classroomApi.Controllers
-{
+{   
     [Route("api/course/{courseID}/[controller]")]
     [ApiController]
     public class PostController : ControllerBase
@@ -34,7 +31,6 @@ namespace classroomApi.Controllers
                             post_createAt = posts.CreatedAt,
                             post_last_update = posts.UpdatedAt,
                             post_content = posts.Content,
-                            post_publisher_id = posts.UserId,
                             post_direct_pub = new
                             {
                                 user_id = posts.User.Id,

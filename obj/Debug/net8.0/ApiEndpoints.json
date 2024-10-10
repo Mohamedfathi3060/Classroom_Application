@@ -80,6 +80,43 @@
     "ReturnTypes": []
   },
   {
+    "ContainingType": "classroomApi.Controllers.CommentController",
+    "Method": "CreateComment",
+    "RelativePath": "api/post/{postID}/Comment",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "postID",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "commentBody",
+        "Type": "Classroom.Models.Comment",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "classroomApi.Controllers.CommentController",
+    "Method": "GetCommentsForPost",
+    "RelativePath": "api/post/{postID}/Comment",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "postID",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
     "ContainingType": "classroomApi.Controllers.WeatherForecastController",
     "Method": "Get",
     "RelativePath": "WeatherForecast",
