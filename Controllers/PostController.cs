@@ -1,12 +1,15 @@
 ﻿using Classroom.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
+using System.Security.Claims;
 
 
 namespace classroomApi.Controllers
-{   
+{
+    [Authorize]
     [Route("api/course/{courseID}/[controller]")]
     [ApiController]
     public class PostController : ControllerBase
@@ -36,7 +39,6 @@ namespace classroomApi.Controllers
                                 user_id = posts.User.Id,
                                 user_name = posts.User.FirstName +" "+ posts.User.LastName,
                                 user_email = posts.User.Email,
-                                user_role = posts.User.Role,
                             }
                         });
 
@@ -55,12 +57,22 @@ namespace classroomApi.Controllers
         public IActionResult CreatePost([FromRoute] int courseID, [FromBody] Post postBody)
         {
 
+            var s_user_id = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+            if (s_user_id == null)
+            {
+                return BadRequest(new
+                {
+                    id = s_user_id,
+                    messaage = "wrong token"
+                });
+            }
+
             // 1) get User ID from token 
-            int userId = 11;
+            int UserId = int.Parse(s_user_id);
             // 2) get course ID from URI
             // 3) validate post
             // 4) save the post
-            postBody.UserId = userId;
+            postBody.UserId = UserId;
             postBody.CourseId = courseID;
             postBody.CreatedAt = DateTime.Now;
 

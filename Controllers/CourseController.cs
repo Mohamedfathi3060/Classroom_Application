@@ -2,10 +2,13 @@
 using Microsoft.AspNetCore.Mvc;
 using Classroom.Models;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Authorization;
+using System.Security.Claims;
 
 
 namespace classroomApi.Controllers
 {
+    [Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class CourseController : ControllerBase
@@ -15,13 +18,25 @@ namespace classroomApi.Controllers
         {
             this.DB = DB;
         }
-        
+
         [HttpGet]
         public IActionResult GetAll()
         {
-            // get User ID
-            int UserId = 11;
 
+            var s_user_id = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+            if (s_user_id == null)
+            {
+                return BadRequest(new
+                {
+                    id = s_user_id,
+                    messaage = "wrong token"
+                });
+            }
+
+            // get User ID
+            int UserId = int.Parse(s_user_id);
+
+            
 
             // Query DB to get courses
             var Data = (from enrollemt in DB.CourseEnrollments
@@ -41,7 +56,7 @@ namespace classroomApi.Controllers
             //List<Course> Data = DB.Courses.ToList();
 
 
-            return Ok(Data);
+            return Ok(new { data = Data, user = UserId });
 
         }
 

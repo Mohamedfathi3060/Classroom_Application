@@ -1,8 +1,11 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using classroomApi.Models;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
 
 namespace Classroom.Models
 {
-    public class ApplicationDB : DbContext
+    public class ApplicationDB : IdentityDbContext<User,IdentityRole<int>,int>
     {
         public ApplicationDB() : base() { }
         public ApplicationDB(DbContextOptions option) : base(option) { }
@@ -25,12 +28,19 @@ namespace Classroom.Models
         {
             base.OnModelCreating(modelBuilder);
 
-            // User-Course relationship (1 to Many)
+            // Course-Teaching-User relationship (Many to One)
+            modelBuilder.Entity<Course>()
+                .HasOne(c => c.User)
+                .WithMany(u => u.Teaching)
+                .HasForeignKey(c => c.TeacherId)
+                .OnDelete(DeleteBehavior.SetNull);
+
+            // Course-Post relationship (1 to Many)
             modelBuilder.Entity<Post>()
                 .HasOne(c => c.Course)
                 .WithMany(u => u.posts)
                 .HasForeignKey(c => c.CourseId)
-                .OnDelete(DeleteBehavior.SetNull);
+                .OnDelete(DeleteBehavior.NoAction);
 
             // User-Post relationship (1 to Many)
             modelBuilder.Entity<Post>()
@@ -53,12 +63,14 @@ namespace Classroom.Models
                 .HasForeignKey(c => c.UserId)
                 .OnDelete(DeleteBehavior.SetNull);
 
+            // CourseEnrollment-User relationship
             modelBuilder.Entity<CourseEnrollment>()
                 .HasOne(c => c.User)
                 .WithMany(u => u.Enrollments)
                 .HasForeignKey(c => c.UserId)
                 .OnDelete(DeleteBehavior.SetNull);
 
+            // CourseEnrollment-Course relationship
             modelBuilder.Entity<CourseEnrollment>()
                 .HasOne(c => c.Course)
                 .WithMany(u => u.Enrollments)

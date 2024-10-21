@@ -1,10 +1,13 @@
 ﻿using Classroom.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
+using System.Security.Claims;
 
 namespace classroomApi.Controllers
 {
+    [Authorize]
     [Route("api/post/{postID}/[controller]")]
     [ApiController]
     public class CommentController : ControllerBase
@@ -17,13 +20,23 @@ namespace classroomApi.Controllers
         [HttpPost]
         public IActionResult CreateComment([FromRoute] int postID, [FromBody] Comment commentBody)
         {
+            var s_user_id = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+            if (s_user_id == null)
+            {
+                return BadRequest(new
+                {
+                    id = s_user_id,
+                    messaage = "wrong token"
+                });
+            }
 
             // 1) get User ID from token 
-            int userId = 11;
+            int UserId = int.Parse(s_user_id);
+
             // 2) get course ID from URI
             // 3) validate comment
             // 4) save the comment
-            commentBody.UserId = userId;
+            commentBody.UserId = UserId;
             commentBody.PostId = postID;
             commentBody.CreatedAt = DateTime.Now;
 
@@ -63,7 +76,6 @@ namespace classroomApi.Controllers
                                 user_id = comments.User.Id,
                                 user_name = comments.User.FirstName + " " + comments.User.LastName,
                                 user_email = comments.User.Email,
-                                user_role = comments.User.Role,
                             },
                             comment_content = comments.Content,
                             comment_createAt = comments.CreatedAt,

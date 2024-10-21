@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace classroomApi.Migrations
 {
     [DbContext(typeof(ApplicationDB))]
-    [Migration("20241005181718_create-classroom-database")]
-    partial class createclassroomdatabase
+    [Migration("20241012184035_update-role-miss")]
+    partial class updaterolemiss
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -73,17 +73,24 @@ namespace classroomApi.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("TeacherId")
+                    b.Property<string>("Image")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int?>("TeacherId")
                         .HasColumnType("int");
 
                     b.Property<string>("Title")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(56)
+                        .HasColumnType("nvarchar(56)");
 
                     b.Property<DateTime>("UpdatedAt")
                         .HasColumnType("datetime2");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("TeacherId");
 
                     b.ToTable("Courses");
                 });
@@ -101,6 +108,10 @@ namespace classroomApi.Migrations
 
                     b.Property<DateTime>("EnrolledAt")
                         .HasColumnType("datetime2");
+
+                    b.Property<string>("Role")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<int?>("UserId")
                         .HasColumnType("int");
@@ -166,15 +177,14 @@ namespace classroomApi.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("Image")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("LastName")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Password")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Role")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
@@ -203,6 +213,16 @@ namespace classroomApi.Migrations
                     b.Navigation("User");
                 });
 
+            modelBuilder.Entity("Classroom.Models.Course", b =>
+                {
+                    b.HasOne("Classroom.Models.User", "User")
+                        .WithMany("Teaching")
+                        .HasForeignKey("TeacherId")
+                        .OnDelete(DeleteBehavior.SetNull);
+
+                    b.Navigation("User");
+                });
+
             modelBuilder.Entity("Classroom.Models.CourseEnrollment", b =>
                 {
                     b.HasOne("Classroom.Models.Course", "Course")
@@ -225,7 +245,7 @@ namespace classroomApi.Migrations
                     b.HasOne("Classroom.Models.Course", "Course")
                         .WithMany("posts")
                         .HasForeignKey("CourseId")
-                        .OnDelete(DeleteBehavior.SetNull);
+                        .OnDelete(DeleteBehavior.NoAction);
 
                     b.HasOne("Classroom.Models.User", "User")
                         .WithMany("posts")
@@ -252,6 +272,8 @@ namespace classroomApi.Migrations
             modelBuilder.Entity("Classroom.Models.User", b =>
                 {
                     b.Navigation("Enrollments");
+
+                    b.Navigation("Teaching");
 
                     b.Navigation("comments");
 

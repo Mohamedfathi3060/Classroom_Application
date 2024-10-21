@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
+﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Classroom.Models
 {
@@ -9,6 +10,10 @@ namespace Classroom.Models
         public int? UserId { get; set; }
         [ForeignKey("Course")]
         public int? CourseId { get; set; }
+        [Required]
+        [RegularExpression("Teacher|Student", ErrorMessage = "Role must be 'Teacher' or 'Student' only.")]
+        public string Role { get; set; }
+
         public DateTime EnrolledAt { get; set; } = DateTime.Now;
 
         // RelationShips

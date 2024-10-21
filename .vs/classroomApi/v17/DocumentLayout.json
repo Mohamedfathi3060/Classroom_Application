@@ -3,20 +3,8 @@
   "WorkspaceRootPath": "M:\\c# library\\classroomApi\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{A0F6F2F2-19E6-4653-B38E-0B9EC29A2D6D}|classroomApi.csproj|m:\\c# library\\classroomapi\\controllers\\commentcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{A0F6F2F2-19E6-4653-B38E-0B9EC29A2D6D}|classroomApi.csproj|solutionrelative:controllers\\commentcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{A0F6F2F2-19E6-4653-B38E-0B9EC29A2D6D}|classroomApi.csproj|m:\\c# library\\classroomapi\\controllers\\postcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{A0F6F2F2-19E6-4653-B38E-0B9EC29A2D6D}|classroomApi.csproj|solutionrelative:controllers\\postcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{A0F6F2F2-19E6-4653-B38E-0B9EC29A2D6D}|classroomApi.csproj|m:\\c# library\\classroomapi\\models\\comment.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{A0F6F2F2-19E6-4653-B38E-0B9EC29A2D6D}|classroomApi.csproj|solutionrelative:models\\comment.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{A0F6F2F2-19E6-4653-B38E-0B9EC29A2D6D}|classroomApi.csproj|m:\\c# library\\classroomapi\\controllers\\coursecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{A0F6F2F2-19E6-4653-B38E-0B9EC29A2D6D}|classroomApi.csproj|solutionrelative:controllers\\coursecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{A0F6F2F2-19E6-4653-B38E-0B9EC29A2D6D}|classroomApi.csproj|m:\\c# library\\classroomapi\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A0F6F2F2-19E6-4653-B38E-0B9EC29A2D6D}|classroomApi.csproj|solutionrelative:program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -26,58 +14,19 @@
       "DocumentGroups": [
         {
           "DockedHeight": 200,
-          "SelectedChildIndex": 1,
+          "SelectedChildIndex": 0,
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "Comment.cs",
-              "DocumentMoniker": "M:\\c# library\\classroomApi\\Models\\Comment.cs",
-              "RelativeDocumentMoniker": "Models\\Comment.cs",
-              "ToolTip": "M:\\c# library\\classroomApi\\Models\\Comment.cs",
-              "RelativeToolTip": "Models\\Comment.cs",
-              "ViewState": "AgIAAAMAAAAAAAAAAAAAAAoAAAAoAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-10-10T18:11:50.007Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
               "DocumentIndex": 0,
-              "Title": "CommentController.cs",
-              "DocumentMoniker": "M:\\c# library\\classroomApi\\Controllers\\CommentController.cs",
-              "RelativeDocumentMoniker": "Controllers\\CommentController.cs",
-              "ToolTip": "M:\\c# library\\classroomApi\\Controllers\\CommentController.cs",
-              "RelativeToolTip": "Controllers\\CommentController.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAFQAAAAFAAAAAAAAAA==",
+              "Title": "Program.cs",
+              "DocumentMoniker": "M:\\c# library\\classroomApi\\Program.cs",
+              "RelativeDocumentMoniker": "Program.cs",
+              "ToolTip": "M:\\c# library\\classroomApi\\Program.cs",
+              "RelativeToolTip": "Program.cs",
+              "ViewState": "AgIAABMAAAAAAAAAAAAQwEcAAAANAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-10-10T18:07:56.941Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "PostController.cs",
-              "DocumentMoniker": "M:\\c# library\\classroomApi\\Controllers\\PostController.cs",
-              "RelativeDocumentMoniker": "Controllers\\PostController.cs",
-              "ToolTip": "M:\\c# library\\classroomApi\\Controllers\\PostController.cs",
-              "RelativeToolTip": "Controllers\\PostController.cs",
-              "ViewState": "AgIAABMAAAAAAAAAAAA3wCEAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-10-09T18:18:52.697Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 3,
-              "Title": "CourseController.cs",
-              "DocumentMoniker": "M:\\c# library\\classroomApi\\Controllers\\CourseController.cs",
-              "RelativeDocumentMoniker": "Controllers\\CourseController.cs",
-              "ToolTip": "M:\\c# library\\classroomApi\\Controllers\\CourseController.cs",
-              "RelativeToolTip": "Controllers\\CourseController.cs",
-              "ViewState": "AgIAAAYAAAAAAAAAAAAAAEAAAAAhAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-10-09T20:13:01.455Z",
+              "WhenOpened": "2024-10-12T18:41:21.987Z",
               "EditorCaption": ""
             }
           ]

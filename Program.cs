@@ -2,6 +2,8 @@
 using Classroom.Models;
 using classroomApi.Models;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using Microsoft.IdentityModel.Tokens;
@@ -17,34 +19,35 @@ namespace classroomApi
 
             // Add services to the container.
 
+
+            //builder.Services.AddIdentity<User, IdentityRole>().AddEntityFrameworkStores<ApplicationDB>();
+            builder.Services.AddIdentity<User, IdentityRole<int>>()
+            .AddEntityFrameworkStores<ApplicationDB>()
+            .AddDefaultTokenProviders();
+
+
             // Adding Jwt auth to our App
-
-            var jwtSettingsSection = builder.Configuration.GetSection("JwtSettings");
-            builder.Services.Configure<JwtSettings>(jwtSettingsSection);
-
-            var jwtSettings = jwtSettingsSection.Get<JwtSettings>();
-            var key = Encoding.ASCII.GetBytes(jwtSettings.SecretKey);
-
-            builder.Services.AddAuthentication(x =>
+            builder.Services.AddAuthentication(options =>
             {
-                x.DefaultAuthenticateScheme  = JwtBearerDefaults.AuthenticationScheme;
-                x.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
-                x.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
+                options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+                // options.DefaultScheme= JwtBearerDefaults.AuthenticationScheme;
+            }
+             ).AddJwtBearer(options =>
+             {
+                 options.SaveToken = true;
+                 options.RequireHttpsMetadata = true;
+                 options.TokenValidationParameters = new TokenValidationParameters()
+                 {
+                     ValidateIssuer = true,
+                     ValidIssuer = "http://localhost:5057",
+                     ValidateAudience = true,
+                     ValidAudience = "http://localhost:5057",
+                     IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["JwtSettings:SecretKey"]))
+                 };
 
-            }).AddJwtBearer(x =>
-            {
-                x.TokenValidationParameters = new TokenValidationParameters
-                {
-                    ValidateIssuerSigningKey = true,
-                    IssuerSigningKey = new SymmetricSecurityKey(key),
-                    ValidateIssuer = true,
-                    ValidIssuer = jwtSettings.Issuer,
-                    ValidateAudience = true,
-                    ValidAudience = jwtSettings.Audience,
-                    ValidateLifetime = true,
-                    ClockSkew = TimeSpan.Zero
-                };
-            });
+             }
+             );
 
 
             builder.Services.AddControllers();
@@ -61,7 +64,7 @@ namespace classroomApi
 
             var app = builder.Build();
 
-            // Configure the HTTP request pipeline.
+            //Configure the HTTP request pipeline.
             if (app.Environment.IsDevelopment())
             {
                 app.UseSwagger();
