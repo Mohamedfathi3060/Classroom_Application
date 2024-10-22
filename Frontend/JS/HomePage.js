@@ -156,12 +156,18 @@ document.addEventListener("DOMContentLoaded", function () {
       const img = document.createElement("img");
       img.src = getOrGenerateImage(i);
       img.alt = `Placeholder Image ${i}`;
-
+      // Add click event to title for redirection
+      img.addEventListener("click", () => {
+        window.location.href = "../HTML/CoursePage.html";
+      });
       const titleElement = `Title ${i}`;
       titles.push(titleElement);
       const title = document.createElement("h3");
       title.textContent = titleElement;
-
+      // Add click event to title for redirection
+      title.addEventListener("click", () => {
+        window.location.href = "../HTML/CoursePage.html";
+      });
       const description = document.createElement("p");
       description.textContent = `Description ${i}`;
 
@@ -188,7 +194,10 @@ document.addEventListener("DOMContentLoaded", function () {
     titles.forEach((title, index) => {
       const submenuItem = document.createElement("div");
       submenuItem.classList.add("submenu-item");
-
+      //Add click event to submenu title for redirection
+      submenuItem.addEventListener("click", () => {
+        window.location.href = "../HTML/CoursePage.html";
+      });
       const submenuIcon = document.createElement("div");
       submenuIcon.classList.add("submenu-icon");
 
