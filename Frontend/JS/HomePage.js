@@ -100,35 +100,7 @@ document.addEventListener("DOMContentLoaded", function () {
   const sidebar = document.querySelector(".sidebar");
   const toggleBtn = document.querySelector(".toggle-btn");
   let hoverTimeout;
-  let isToggledOpen = false;
-
-  // Function to update grid columns based on the sidebar collapse state
-  function updateGridColumns() {
-    const isCollapsed = sidebar.classList.contains("collapsed");
-    gridContainer.style.gridTemplateColumns = isCollapsed
-      ? "repeat(4, 1fr)" // 4 columns when collapsed
-      : "repeat(3, 1fr)"; // 3 columns when expanded
-  }
-
-  function checkForNoCourses() {
-    // If no children are present in the grid container
-    if (gridContainer.children.length === 0) {
-      const noCoursesMessage = document.createElement("div");
-      noCoursesMessage.classList.add("no-courses");
-
-      // Create and append text with <br> elements
-      noCoursesMessage.innerHTML =
-        "<br><br><br><br><br><br><br><br><br>No courses available<br>Join or create a class";
-
-      gridContainer.appendChild(noCoursesMessage);
-    } else {
-      const existingMessage = document.querySelector(".no-courses");
-      if (existingMessage) {
-        gridContainer.removeChild(existingMessage);
-      }
-    }
-  }
-
+  let isToggledOpen = false; // Define this to avoid reference errors
   const imagePaths = [
     "../Images/Honors.jpg",
     "../Images/img_backtoschool.jpg",
@@ -141,99 +113,131 @@ document.addEventListener("DOMContentLoaded", function () {
   ];
 
   function getOrGenerateImage(index) {
-    // Check if there's already an assigned image for this index
     let storedImage = localStorage.getItem(`grid-img-${index}`);
-
     if (!storedImage) {
-      // Generate a random image path
       const randomImage =
         imagePaths[Math.floor(Math.random() * imagePaths.length)];
-      localStorage.setItem(`grid-img-${index}`, randomImage); // Store it
+      localStorage.setItem(`grid-img-${index}`, randomImage);
       storedImage = randomImage;
     }
-
     return storedImage;
   }
-  // Function to generate grid items dynamically
-  async function generateGridItems() {
-    // Example: Adjust the number of items to test the "no courses" scenario
-    // const numberOfItems = 50; // Set to 0 to trigger "No courses" message
 
-    // for (let i = 1; i <= numberOfItems; i++) {
-    //   const gridItem = document.createElement("div");
-    //   gridItem.classList.add("grid-item");
+  function updateGridColumns() {
+    const isCollapsed = sidebar.classList.contains("collapsed");
+    gridContainer.style.gridTemplateColumns = isCollapsed
+      ? "repeat(4, 1fr)"
+      : "repeat(3, 1fr)";
+  }
 
-    //   const img = document.createElement("img");
-    //   img.src = getOrGenerateImage(i); // Use the random image
-    //   img.alt = `Placeholder Image ${i}`;
-
-    //   const title = document.createElement("h3");
-    //   title.textContent = `Title ${i}`;
-
-    //   const description = document.createElement("p");
-    //   description.textContent = `Description ${i}`;
-
-    //   gridItem.appendChild(img);
-    //   gridItem.appendChild(title);
-    //   gridItem.appendChild(description);
-
-    //   gridContainer.appendChild(gridItem);
-    // }
-
-    let json = await fetchCourses();
-    if (json.status === "success" && json.data.length != 0) {
-      for (let i = 0; i < json.data.length; i++) {
-        const gridItem = document.createElement("div");
-        gridItem.classList.add("grid-item");
-        const img = document.createElement("img");
-        img.src = getOrGenerateImage(i); // Use the random image
-        img.alt = `Placeholder Image ${i}`;
-        const title = document.createElement("h3");
-        title.textContent = json.data[i].course_Title;
-        const description = document.createElement("p");
-        description.textContent = json.data[i].course_description;
-        gridItem.appendChild(img);
-        gridItem.appendChild(title);
-        gridItem.appendChild(description);
-        gridContainer.appendChild(gridItem);
-      }
+  function checkForNoCourses() {
+    if (gridContainer.children.length === 0) {
+      const noCoursesMessage = document.createElement("div");
+      noCoursesMessage.classList.add("no-courses");
+      noCoursesMessage.innerHTML =
+        "<br><br><br><br><br><br><br><br><br>No courses available<br>Join or create a class";
+      gridContainer.appendChild(noCoursesMessage);
     } else {
-      checkForNoCourses();
+      const existingMessage = document.querySelector(".no-courses");
+      if (existingMessage) {
+        gridContainer.removeChild(existingMessage);
+      }
     }
   }
 
-  // Automatically start with the sidebar collapsed
-  sidebar.classList.add("collapsed");
-  updateGridColumns(); // Set grid to 4 columns initially since the sidebar is collapsed
+  function generateGridItems() {
+    const numberOfItems = 50;
+    const titles = [];
 
-  // Toggle sidebar on button click
+    for (let i = 1; i <= numberOfItems; i++) {
+      const gridItem = document.createElement("div");
+      gridItem.classList.add("grid-item");
+
+      const img = document.createElement("img");
+      img.src = getOrGenerateImage(i);
+      img.alt = `Placeholder Image ${i}`;
+
+      const titleElement = `Title ${i}`;
+      titles.push(titleElement);
+      const title = document.createElement("h3");
+      title.textContent = titleElement;
+
+      const description = document.createElement("p");
+      description.textContent = `Description ${i}`;
+
+      gridItem.appendChild(img);
+      gridItem.appendChild(title);
+      gridItem.appendChild(description);
+
+      gridContainer.appendChild(gridItem);
+    }
+    generateSubmenuItems(titles);
+    checkForNoCourses();
+  }
+
+  // Function to generate submenu items based on titles
+  function generateSubmenuItems(titles) {
+    const submenuTeacherContainer = sidebar.querySelector(".submenu-teacher"); // Get the teacher submenu container
+    const submenuEnrolledContainer = sidebar.querySelector(".submenu-enrolled"); // Get the enrolled submenu container
+
+    // Clear existing submenu items
+    submenuTeacherContainer.innerHTML = "";
+    submenuEnrolledContainer.innerHTML = "";
+
+    // Condition to distribute titles (e.g., odd goes to teacher, even goes to enrolled)
+    titles.forEach((title, index) => {
+      const submenuItem = document.createElement("div");
+      submenuItem.classList.add("submenu-item");
+
+      const submenuIcon = document.createElement("div");
+      submenuIcon.classList.add("submenu-icon");
+
+      const submenuTitle = document.createElement("div");
+      submenuTitle.classList.add("submenu-title");
+      submenuTitle.textContent = title; // Set title
+
+      submenuItem.appendChild(submenuIcon);
+      submenuItem.appendChild(submenuTitle);
+
+      // Conditional: Place in teacher or enrolled based on index (odd/even)
+      if (index % 2 === 0) {
+        // Even index goes to submenu-teacher
+        submenuTeacherContainer.appendChild(submenuItem);
+      } else {
+        // Odd index goes to submenu-enrolled
+        submenuEnrolledContainer.appendChild(submenuItem);
+      }
+    });
+  }
+
+  sidebar.classList.add("collapsed");
+  updateGridColumns();
+
   toggleBtn.addEventListener("click", function () {
     sidebar.classList.toggle("collapsed");
-    updateGridColumns(); // Update grid columns on toggle
+    updateGridColumns();
 
     isToggledOpen = !sidebar.classList.contains("collapsed");
     this.textContent = sidebar.classList.contains("collapsed") ? "☰" : "✖";
   });
 
-  // Expand the sidebar on hover
   sidebar.addEventListener("mouseenter", () => {
     if (!isToggledOpen) {
       hoverTimeout = setTimeout(() => {
         sidebar.classList.remove("collapsed");
-        updateGridColumns(); // Update grid columns on hover
-      }, 150); // 150ms delay
+        updateGridColumns();
+      }, 150);
     }
   });
 
-  // Collapse the sidebar when the cursor leaves
   sidebar.addEventListener("mouseleave", () => {
-    clearTimeout(hoverTimeout); // Clear timeout if the cursor leaves early
+    clearTimeout(hoverTimeout);
     if (!isToggledOpen) {
       sidebar.classList.add("collapsed");
-      updateGridColumns(); // Update grid columns on leave
+      updateGridColumns();
     }
   });
-  // Set initial grid columns and generate grid items
+
   generateGridItems();
 });
 

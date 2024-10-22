@@ -312,7 +312,10 @@ h1, h2 {
     transition: background-color 0.2s, border 0.2s;
     border-radius: 8px; /* Smooth corners */
 }
-
+.sidebar-link {
+    text-decoration: none; /* Removes the underline */
+    color: inherit; /* Ensures the text color stays consistent */
+}
 /* Hover effect */
 .sidebar-header-teacher:hover,
 .sidebar-header-enrolled:hover,
@@ -362,7 +365,7 @@ h1, h2 {
     transition-delay: 0.3s; /* Delay to sync with sidebar opening */
 }
 
-.sidebar.collapsed .submenu {
+.sidebar.collapsed .submenu-teacher,.sidebar.collapsed .submenu-enrolled{
     opacity: 0;
     pointer-events: none;
     padding-left: 20px;
@@ -376,7 +379,7 @@ h1, h2 {
 }
 
 /* Submenu styling */
-.submenu {
+.submenu-teacher,.submenu-enrolled {
     padding-left: 5px;
     padding-right: 5px;
     display: none; /* Hide by default */
@@ -384,11 +387,11 @@ h1, h2 {
     transition: opacity 0.3s;
 }
 
-.submenu.open {
+.submenu-teacher.open,.submenu-enrolled.open {
     display: block; /* Show submenu when open class is added */
 }
 
-.sidebar.collapsed .submenu {
+.sidebar.collapsed .submenu-teacher, .sidebar.collapsed .submenu-enrolled {
     opacity: 0;
     pointer-events: none;
     display: none; /* Keep submenu hidden when sidebar is collapsed */
@@ -588,7 +591,7 @@ body.dark-mode .collapsable-icon:hover svg {
 }
 
 /* Submenu Dark Mode */
-body.dark-mode .submenu {
+body.dark-mode .submenu-teacher, body.dark-mode .submenu-enrolled {
     background-color: #2e2e2e
 }
 
