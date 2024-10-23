@@ -145,11 +145,12 @@ document.addEventListener("DOMContentLoaded", function () {
     }
   }
 
-  function generateGridItems() {
-    const numberOfItems = 50;
-    const titles = [];
+  async function generateGridItems() {
+    let res = await fetchCourses();
+    const numberOfItems = res.data.length;
+    const courses = [];
 
-    for (let i = 1; i <= numberOfItems; i++) {
+    for (let i = 0; i < numberOfItems; i++) {
       const gridItem = document.createElement("div");
       gridItem.classList.add("grid-item");
 
@@ -160,8 +161,8 @@ document.addEventListener("DOMContentLoaded", function () {
       img.addEventListener("click", () => {
         window.location.href = "../HTML/CoursePage.html";
       });
-      const titleElement = `Title ${i}`;
-      titles.push(titleElement);
+      const titleElement = res.data[i].course_Title;
+      courses.push(res.data[i]);
       const title = document.createElement("h3");
       title.textContent = titleElement;
       // Add click event to title for redirection
@@ -169,7 +170,7 @@ document.addEventListener("DOMContentLoaded", function () {
         window.location.href = "../HTML/CoursePage.html";
       });
       const description = document.createElement("p");
-      description.textContent = `Description ${i}`;
+      description.textContent = res.data[i].course_description;
 
       gridItem.appendChild(img);
       gridItem.appendChild(title);
@@ -177,12 +178,12 @@ document.addEventListener("DOMContentLoaded", function () {
 
       gridContainer.appendChild(gridItem);
     }
-    generateSubmenuItems(titles);
+    generateSubmenuItems(courses, res.user);
     checkForNoCourses();
   }
 
   // Function to generate submenu items based on titles
-  function generateSubmenuItems(titles) {
+  function generateSubmenuItems(courses, userID) {
     const submenuTeacherContainer = sidebar.querySelector(".submenu-teacher"); // Get the teacher submenu container
     const submenuEnrolledContainer = sidebar.querySelector(".submenu-enrolled"); // Get the enrolled submenu container
 
@@ -191,7 +192,7 @@ document.addEventListener("DOMContentLoaded", function () {
     submenuEnrolledContainer.innerHTML = "";
 
     // Condition to distribute titles (e.g., odd goes to teacher, even goes to enrolled)
-    titles.forEach((title, index) => {
+    courses.forEach((course) => {
       const submenuItem = document.createElement("div");
       submenuItem.classList.add("submenu-item");
       //Add click event to submenu title for redirection
@@ -203,13 +204,13 @@ document.addEventListener("DOMContentLoaded", function () {
 
       const submenuTitle = document.createElement("div");
       submenuTitle.classList.add("submenu-title");
-      submenuTitle.textContent = title; // Set title
+      submenuTitle.textContent = course.course_Title; // Set title
 
       submenuItem.appendChild(submenuIcon);
       submenuItem.appendChild(submenuTitle);
 
       // Conditional: Place in teacher or enrolled based on index (odd/even)
-      if (index % 2 === 0) {
+      if (course.course_teacher_id === userID) {
         // Even index goes to submenu-teacher
         submenuTeacherContainer.appendChild(submenuItem);
       } else {
