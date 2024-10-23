@@ -4,6 +4,8 @@ using Classroom.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Authorization;
 using System.Security.Claims;
+using System.Text.Json.Serialization;
+using System.Text.Json;
 
 
 namespace classroomApi.Controllers
@@ -28,6 +30,7 @@ namespace classroomApi.Controllers
             {
                 return BadRequest(new
                 {
+                    status = "error",
                     id = s_user_id,
                     messaage = "wrong token"
                 });
@@ -56,17 +59,34 @@ namespace classroomApi.Controllers
             //List<Course> Data = DB.Courses.ToList();
 
 
-            return Ok(new { data = Data, user = UserId });
+            return Ok(new { status = "success" , data = Data, user = UserId });
 
         }
 
         [HttpGet("{courseId:int}",Name ="course")]
         public IActionResult getCourseById(int courseId)
         {
-            Course course = DB.Courses.FirstOrDefault(
-                parm => parm.Id == courseId
-               );
-            return Ok(course);
+            // Fetch the course along with its posts and each post's comments
+            var course = DB.Courses
+                .Include(c => c.posts)
+                    .ThenInclude(p => p.Comments)
+                .FirstOrDefault(c => c.Id == courseId);
+
+            // Check if the course is found
+            if (course == null)
+            {
+                return NotFound("Course not found.");
+            }
+            var options = new JsonSerializerOptions
+            {
+                ReferenceHandler = ReferenceHandler.Preserve,
+                WriteIndented = true
+            };
+
+            var courseJson = JsonSerializer.Serialize(course, options);
+            return Content(courseJson, "application/json");
+
+
 
         }
 

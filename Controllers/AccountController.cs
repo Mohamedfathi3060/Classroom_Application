@@ -41,15 +41,15 @@ namespace classroomApi.Controllers
                 
                 if (result.Succeeded)
                 {
-                    return Ok(new { Message = "User registered successfully." });
+                    return Ok(new { status = "success" , Message = "User registered successfully." });
                 }
                 else
                 {
-                    return BadRequest(new { Message = result.Errors });
+                    return BadRequest(new { status = "error" , Message = "email is Already added before" });
                 }
             }
 
-            return BadRequest(new { Message = ModelState });
+            return BadRequest(new { status = "error" , Message = "InvALID DATA" });
         }
 
         [HttpPost("login")]
@@ -60,21 +60,21 @@ namespace classroomApi.Controllers
                 var user = await userManager.FindByEmailAsync(loginDTO.Email);
                 if (user == null)
                 {
-                    return Unauthorized(new { Message = "1 Invalid email or password." ,email= loginDTO.Email });
+                    return Unauthorized(new { status = "error" , Message = "Invalid email or password."});
                 }
 
                 var passwordValid = await userManager.CheckPasswordAsync(user, loginDTO.Password);
                 if (!passwordValid)
                 {
-                    return Unauthorized(new { Message = "2 Invalid email or password." });
+                    return Unauthorized(new { status = "error", Message = "Invalid email or password." });
                 }
 
                 var token = await GenerateJwtToken(user);
 
-                return Ok(new { Token = token });
+                return Ok(new { status = "success",  Token = token });
             }
 
-            return BadRequest(ModelState);
+            return BadRequest(new { status = "error",  Message = ModelState });
         }
 
         

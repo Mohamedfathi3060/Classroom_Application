@@ -62,7 +62,25 @@ namespace classroomApi
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
 
+
+
+
+            // CORS
+            builder.Services.AddCors(options =>
+            {
+                options.AddPolicy("AllowAll", policy =>
+                {
+                    policy.AllowAnyOrigin()
+                        .AllowAnyMethod()
+                        .AllowAnyHeader();                  // Allow all HTTP methods (GET, POST, etc.)
+            });
+            });
+
+
             var app = builder.Build();
+
+            app.UseCors("AllowAll");
+
 
             //Configure the HTTP request pipeline.
             if (app.Environment.IsDevelopment())
