@@ -108,15 +108,28 @@ const sidebar = document.getElementById('sidebar');
         for (let i = 1; i <= numberOfItems; i++) {
             const titleElement = `Title ${i}`;
             titles.push(titleElement);
+            const postitem = document.createElement('div');
+            postitem.classList.add('post-item');
+            const authorIcon = document.createElement('div');
+            authorIcon.classList.add('author-icon');
+            
+             // Create post-header section
+        const postHeader = document.createElement('div');
+        postHeader.classList.add('post-header'); 
+      
+        const authorInfo = document.createElement('div');
+        authorInfo.classList.add('author-info');
+        const postAuthor = document.createElement('span');
+        postAuthor.classList.add('post-author');
+        postAuthor.textContent = 'Post Author';
 
-            // Create post-header section
-            const postHeader = document.createElement('div');
-            postHeader.classList.add('post-header');
-            postHeader.innerHTML = `
-                <span class="post-author">Post author</span>
-                <span class="post-date">MMM DD</span>
-            `;
+        const postDate = document.createElement('span');
+        postDate.classList.add('post-date');
+        postDate.textContent = 'MMM DD';
     
+
+        // Append author info
+
             // Create post-content section
             const postContent = document.createElement('div');
             postContent.classList.add('post-content');
@@ -125,28 +138,122 @@ const sidebar = document.getElementById('sidebar');
             // Create comment section
             const commentSection = document.createElement('div');
             commentSection.classList.add('comment-section');
+            // Create a container div for the SVG icon and comment count
+const commentCountContainer = document.createElement('div');
+const commentContainer = document.createElement('div');
+commentContainer.classList.add('comment-container');
+
+// Add the input and button to the container
+
+// Append the container to the desired parent element (e.g., the body or another div)
             const commentInput = document.createElement('input');
             commentInput.type = 'text';
             commentInput.classList.add('comment-input');
             commentInput.placeholder = 'Add class comment...';
-            commentSection.appendChild(commentInput);
-    
+    // Create the post button
+const commentButton = document.createElement('button');
+commentButton.classList.add('comment-button');
+commentButton.id = 'commentButton';
 
-    
-            // Append the grid item to the grid container
-            gridContainer.appendChild(postHeader);
-            gridContainer.appendChild(postContent);
-            gridContainer.appendChild(commentSection);
+// Add the SVG icon inside the button
+const svgIcon = `<svg focusable="false" width="24" height="24" viewBox="0 0 24 24" class="NMm5M hhikbc">
+                    <path d="M2 3v18l20-9L2 3zm2 11l9-2-9-2V6.09L17.13 12 4 17.91V14z"></path>
+                </svg>`;
+                commentButton.innerHTML = svgIcon;
+
+ // Add event listener to the button inside the loop
+ commentButton.addEventListener('click', function() {
+  const commentinputContent = commentInput.value;
+
+  if (commentinputContent.trim() !== '') {
+      // Logic to create the comment (e.g., sending it to the backend)
+      console.log('Comment posted:', commentinputContent);
+
+      // Clear the input field after posting
+      commentInput.value = '';
+  } else {
+      alert('Please enter a comment before posting.');
+  }
+});
+const numberOfcomments = 5;
+// Create the SVG icon element
+// Create the span element to display the number of comments
+const commentCountSpan = document.createElement('span');
+commentCountSpan.setAttribute('jsname', 'V67aGc');
+commentCountSpan.setAttribute('class', 'VfPpkd-vQzf8d');
+commentCountSpan.textContent = numberOfcomments+' class comments';
+
+// Append the SVG icon and the span to the container div
+commentCountContainer.appendChild(commentCountSpan);
+commentSection.appendChild(commentCountContainer);
+for (let i = 1; i <= numberOfcomments; i++) {
+// Create elements
+const commentitem = document.createElement('div');
+commentitem.classList.add('comment-item');
+const commentHeader = document.createElement('div');
+commentHeader.classList.add('comment-header');
+
+const commentorInfo = document.createElement('div');
+commentorInfo.classList.add('commentor-info');
+
+const commentAuthor = document.createElement('span');
+commentAuthor.classList.add('comment-author');
+commentAuthor.textContent = 'comment author';
+
+const commentDate = document.createElement('span');
+commentDate.classList.add('comment-date');
+commentDate.textContent = 'comment date';
+const commentorIcon = document.createElement('div');
+commentorIcon.classList.add('commentor-icon');
+const commentContent = document.createElement('div');
+commentContent.classList.add('comment-content');
+commentContent.innerHTML = `<p>comment content</p>`;
+// Assemble commentor-info
+commentorInfo.appendChild(commentAuthor);
+commentorInfo.appendChild(commentDate);
+
+// Assemble comment-header
+commentHeader.appendChild(commentorIcon);
+commentHeader.appendChild(commentorInfo);
+commentitem.appendChild(commentHeader);
+commentitem.appendChild(commentContent);
+commentSection.appendChild(commentitem);
+const authorName = commentAuthor.textContent.trim();
+            if (authorName.length > 0) {
+                commentorIcon.textContent = authorName.charAt(0).toUpperCase();
+            }
+      
+}
+
+const hrElement = document.createElement('hr'); 
+       authorInfo.appendChild(postAuthor);
+        authorInfo.appendChild(postDate);
+
+        // Assemble post-header
+        postHeader.appendChild(authorIcon);
+        postHeader.appendChild(authorInfo);
+        commentContainer.appendChild(commentInput);
+commentContainer.appendChild(commentButton);
+        commentSection.appendChild(commentContainer);
+            postitem.appendChild(postHeader);
+            postitem.appendChild(postContent);
+            postitem.appendChild(hrElement); // Append the <hr> element
+            postitem.appendChild(commentSection);
+            postContainer.appendChild(postitem);
         }
     
         // Call other functions with the generated titles
         generateSubmenuItems(titles);
         generateCourseimage();
     }
-    
-  function generateCourseimage() {
-   const courseimg = document.getElementById('course-img');
-  courseimg.src = getOrGenerateImage(1);}
+// CoursePage.js
+function generateCourseimage() {
+  const courseimg = document.getElementById('course-img');
+  const selectedImageIndex = localStorage.getItem('selectedImageIndex');
+  if (selectedImageIndex) {
+      courseimg.src = getOrGenerateImage(selectedImageIndex);
+  }
+}
       // Function to generate submenu items based on titles
 function generateSubmenuItems(titles) {
   const submenuTeacherContainer = sidebar.querySelector('.submenu-teacher'); // Get the teacher submenu container
@@ -162,6 +269,7 @@ function generateSubmenuItems(titles) {
       submenuItem.classList.add('submenu-item');
       //Add click event to submenu title for redirection
       submenuItem.addEventListener('click', () => {
+        localStorage.setItem('selectedImageIndex', index + 1);
         window.location.href = '../HTML/CoursePage.html';
       });
       const submenuIcon = document.createElement('div');
@@ -192,7 +300,11 @@ function generateSubmenuItems(titles) {
       toggleBtn.addEventListener('click', function () {
           sidebar.classList.toggle('collapsed');
           updateGridColumns();
-  
+          if (sidebar.classList.contains('collapsed')) {
+            gridContainer.classList.add('collapsed');
+        } else {
+            gridContainer.classList.remove('collapsed');
+        }
           isToggledOpen = !sidebar.classList.contains('collapsed');
           this.textContent = sidebar.classList.contains('collapsed') ? '☰' : '✖';
       });
@@ -335,4 +447,35 @@ enrolledSubmenu.classList.toggle('open');
 enrolledIcon.style.transform = enrolledSubmenu.classList.contains('open')
 ? 'rotate(90deg)'
 : 'rotate(0deg)';
+});
+document.addEventListener('DOMContentLoaded', function () {
+  document.querySelectorAll('.post-item').forEach(function (item) {
+  const titleElement = item.querySelector('.post-author');
+  const iconElement = item.querySelector('.author-icon');
+  const commentAuthor = item.querySelector('.comment-author');
+  const commentorIcon = item.querySelector('.commentor-icon');
+
+  // Make sure both title and icon elements exist
+  if (titleElement && iconElement) {
+    const title = titleElement.textContent.trim();
+    if (title.length > 0) {
+      iconElement.textContent = title.charAt(0).toUpperCase(); // Get the first letter of the title
+    }
+  }
+});
+  });
+  document.getElementById('postButton').addEventListener('click', function() {
+    console.log('Button clicked'); // This will always log when the button is clicked
+    const postContent = document.getElementById('postInput').value;
+    console.log('Button clicked'); // This will always log when the button is clicked
+    if (postContent.trim() !== '') {
+        // Logic to create the post, e.g., sending it to the backend
+        console.log('Post created:', postContent);
+
+        // Clear the input field after posting
+        document.getElementById('postInput').value = '';
+    } else {
+        alert('Please enter some text before posting.');
+        console.log('P');
+    }
 });

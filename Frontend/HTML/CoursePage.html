@@ -16,7 +16,7 @@
    <div class="header"> 
     <button id="toggleBtn" class="toggle-btn">☰</button>
    <div class="TeachFlow">
-      <a href="HomePage.html">
+      <a href="../HTML/HomePage.html">
          <img src="" 
                alt="TeachFlow text" id="TeachFlow text" class="google-header-text">
       </a>
@@ -129,14 +129,21 @@
         <div class="submenu-enrolled"></div>
     </div>
     <div class="grid-container" id="gridContainer">
-      <div class="course-header">
-       <img class="courseImg" id="course-img" src="" alt="course-img">   
-          <h1 class="course-name">Course name</h1>
-      </div>
-      <div class="announcement-box">
-          <input  type="text" class="announcement-input" placeholder="Add post..."> 
-      </div>
-      <div class="post-container" id="postContainer">
+        <div class="course-header">
+            <img class="courseImg" id="course-img" src="" alt="course-img">   
+            <div class="course-info">
+                <h1 class="course-name">Course Name</h1>
+                <h2 class="course-teacher">Teacher Name</h2>
+        </div>
+        <div class="announcement-box">
+            <input type="text" class="announcement-input" placeholder="Add post..." id="postInput">
+            <button class="post-button" id="postButton">
+                <svg focusable="false" width="24" height="24" viewBox="0 0 24 24" class="NMm5M hhikbc">
+                    <path d="M2 3v18l20-9L2 3zm2 11l9-2-9-2V6.09L17.13 12 4 17.91V14z"></path>
+                </svg>
+            </button>
+        </div>        
+    <div class="post-container" id="postcontainer"></div>
   </div>
     <div id="loginModal" class="modal">
         <div class="modal-content">

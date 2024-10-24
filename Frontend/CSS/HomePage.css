@@ -530,6 +530,11 @@ body.dark-mode .threedot-icon:hover {
     background-color: #333333;
     border-color: #333333;
 }
+body.dark-mode circle
+{
+    fill: #e0e0e0;
+    transition: fill 0.3s;
+}
 .dark-mode .plus-icon{
     color: #e0e0e0;
 }
@@ -550,7 +555,7 @@ body.dark-mode .subheading-text {
 /* Base Dark Mode */
 /* Sidebar Dark Mode */
 body.dark-mode .sidebar {
-    background-color: #222;
+    background-color: #2e2e2e;
     box-shadow: 2px 0 5px rgba(0, 0, 0, 0.3);
 }
 
