@@ -222,6 +222,7 @@ var finalcreateClassBtn = document.getElementsByClassName("create-btn")[0];
 finalcreateClassBtn.onclick = async () => {
   console.log("888888888888888888888888888888888888");
   var v = document.getElementsByClassName("create-class-input")[0].value;
+  var desc = document.getElementById("classDescription").value;
 
   if (v === "") {
     return;
@@ -236,7 +237,7 @@ finalcreateClassBtn.onclick = async () => {
       },
       body: JSON.stringify({
         title: v,
-        Description: "this is the description",
+        Description: desc,
       }),
     });
     if (!response.ok) {
@@ -279,7 +280,7 @@ finalJoinClassBtn.onclick = async () => {
 };
 
 window.onload = async () => {
-  await Promise.all([fetchCourse(), fetchPosts()]);
+  await Promise.all([fetchCourse(), fetchPosts(), fetchCourses()]);
   generateGridItems();
 };
 
@@ -503,7 +504,7 @@ document.addEventListener("DOMContentLoaded", function () {
     alert("Redirect to Register Page");
     localStorage.removeItem("token");
     // Redirect to login page or refresh the current page to show the login modal again
-    window.location.reload(); // Refresh page to show login modal again
+    window.location("../HTML/Login.html"); // Refresh page to show login modal again
   });
 });
 // Handle submenu item icons (on page load)
@@ -645,3 +646,83 @@ document
       console.log("P");
     }
   });
+
+const fetchCourses = async function () {
+  /**/
+  let json = {};
+
+  const url = "http://localhost:5057/api/Course";
+  try {
+    const response = await fetch(url, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: "Bearer " + localStorage.getItem("token"),
+      },
+    });
+    json = await response.json();
+    console.log(json);
+    if (!response.ok) {
+      console.log("error");
+      throw new Error(`Response status: ${response.status}`);
+    }
+  } catch (error) {
+    console.error(error.message);
+  }
+  generateSubmenuItems(json.data, json.user);
+};
+
+const changeFirstChar = () => {
+  document.querySelectorAll(".submenu-item").forEach(function (item) {
+    console.log("--------------------------------------------");
+    const titleElement = item.querySelector(".submenu-title");
+    const iconElement = item.querySelector(".submenu-icon");
+
+    // Make sure both title and icon elements exist
+    if (titleElement && iconElement) {
+      const title = titleElement.textContent.trim();
+      if (title.length > 0) {
+        iconElement.textContent = title.charAt(0).toUpperCase(); // Get the first letter of the title
+      }
+    }
+  });
+};
+// Function to generate submenu items based on titles
+function generateSubmenuItems(courses, userID) {
+  const submenuTeacherContainer = sidebar.querySelector(".submenu-teacher"); // Get the teacher submenu container
+  const submenuEnrolledContainer = sidebar.querySelector(".submenu-enrolled"); // Get the enrolled submenu container
+
+  // Clear existing submenu items
+  submenuTeacherContainer.innerHTML = "";
+  submenuEnrolledContainer.innerHTML = "";
+
+  // Condition to distribute titles (e.g., odd goes to teacher, even goes to enrolled)
+  courses.forEach((course) => {
+    const submenuItem = document.createElement("div");
+    submenuItem.classList.add("submenu-item");
+    //Add click event to submenu title for redirection
+    submenuItem.addEventListener("click", () => {
+      window.location.href = `../HTML/CoursePage.html?id=${course.course_id}`;
+    });
+    const submenuIcon = document.createElement("div");
+    submenuIcon.classList.add("submenu-icon");
+
+    const submenuTitle = document.createElement("div");
+    submenuTitle.classList.add("submenu-title");
+    submenuTitle.textContent = course.course_Title; // Set title
+
+    submenuItem.appendChild(submenuIcon);
+    submenuItem.appendChild(submenuTitle);
+
+    // Conditional: Place in teacher or enrolled based on index (odd/even)
+    if (course.course_teacher_id === userID) {
+      // Even index goes to submenu-teacher
+      submenuTeacherContainer.appendChild(submenuItem);
+    } else {
+      // Odd index goes to submenu-enrolled
+      submenuEnrolledContainer.appendChild(submenuItem);
+    }
+  });
+
+  changeFirstChar();
+}

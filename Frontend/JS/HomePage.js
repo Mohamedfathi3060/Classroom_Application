@@ -284,7 +284,7 @@ document.addEventListener("DOMContentLoaded", function () {
     alert("Redirect to Register Page");
     localStorage.removeItem("isLoggedIn");
     // Redirect to login page or refresh the current page to show the login modal again
-    window.location.reload(); // Refresh page to show login modal again
+    window.location("../HTML/Login.html"); // Refresh page to show login modal again
   });
 });
 // Handle submenu item icons (on page load)
@@ -378,6 +378,7 @@ var finalcreateClassBtn = document.getElementsByClassName("create-btn")[0];
 finalcreateClassBtn.onclick = async () => {
   console.log("888888888888888888888888888888888888");
   var v = document.getElementsByClassName("create-class-input")[0].value;
+  var desc = document.getElementById("classDescription").value;
 
   if (v === "") {
     return;
@@ -392,7 +393,7 @@ finalcreateClassBtn.onclick = async () => {
       },
       body: JSON.stringify({
         title: v,
-        Description: "this is the description",
+        Description: desc,
       }),
     });
     if (!response.ok) {
