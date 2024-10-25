@@ -136,7 +136,6 @@ namespace classroomApi.Controllers
                 DB.Courses.Add(course);
                 DB.SaveChanges();
 
-                // Create a course enrollment record
                 CourseEnrollment enrollment = new CourseEnrollment
                 {
                     UserId = UserId,
@@ -147,10 +146,104 @@ namespace classroomApi.Controllers
                 DB.CourseEnrollments.Add(enrollment);
                 DB.SaveChanges();
 
-                // Return the created course
                 return Created("", new {message = "course created" });
             }
             return BadRequest(course);
+        }
+
+        //[HttpPost("join/{courseCode}",Name = "JoinCourse")]
+        //public IActionResult JoinCourse(string courseCode)
+        //{
+        //    try
+        //    {
+        //        string lastTwoChars = courseCode.Substring(courseCode.Length - 2);
+        //        int courseId = int.Parse(lastTwoChars);
+
+
+
+        //        var courseExists = DB.Courses.AnyAsync(c => c.Id == courseId);
+
+
+        //        var s_user_id = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+        //        if (s_user_id == null)
+        //        {
+        //            return BadRequest(new
+        //            {
+        //                status = "error",
+        //                id = s_user_id,
+        //                messaage = "wrong token"
+        //            });
+        //        }
+        //        int UserId = int.Parse(s_user_id);
+
+        //        if (courseExists == null)
+        //        {
+        //            return BadRequest(new { status = "error", message = "invalid Code" });
+        //        }
+
+        //        CourseEnrollment enrollment = new CourseEnrollment
+        //        {
+        //            UserId = UserId,
+        //            CourseId = courseId,
+        //            Role = "Student",
+        //            EnrolledAt = DateTime.Now,
+        //        };
+        //        DB.CourseEnrollments.Add(enrollment);
+        //        DB.SaveChanges();
+
+        //        return Created("", new { message = "joined Course Successfully" });
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        return BadRequest(new { status = "error", message = "invalid Code" , details= ex.Message});
+        //    }
+
+        //}
+        [HttpPost("join/{courseCode}", Name = "JoinCourse")]
+        public async Task<IActionResult> JoinCourse(string courseCode)
+        {
+            try
+            {
+                string lastTwoChars = courseCode.Substring(courseCode.Length - 2);
+                int courseId = int.Parse(lastTwoChars);
+
+                bool courseExists = await DB.Courses.AnyAsync(c => c.Id == courseId);
+
+                if (!courseExists)
+                {
+                    return BadRequest(new { status = "error", message = "Invalid code." });
+                }
+
+                var s_user_id = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+                if (s_user_id == null)
+                {
+                    return BadRequest(new
+                    {
+                        status = "error",
+                        id = s_user_id,
+                        message = "wrong token"
+                    });
+                }
+
+                int userId = int.Parse(s_user_id);
+
+                var enrollment = new CourseEnrollment
+                {
+                    UserId = userId,
+                    CourseId = courseId,
+                    Role = "Student",
+                    EnrolledAt = DateTime.Now,
+                };
+
+                DB.CourseEnrollments.Add(enrollment);
+                await DB.SaveChangesAsync();
+
+                return Created("", new { message = "Joined course successfully." });
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(new { status = "error", message = "Invalid code.", details = ex.Message });
+            }
         }
 
     }

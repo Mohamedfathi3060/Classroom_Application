@@ -17,6 +17,16 @@
   },
   {
     "ContainingType": "classroomApi.Controllers.AccountController",
+    "Method": "me",
+    "RelativePath": "api/Account/me",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "classroomApi.Controllers.AccountController",
     "Method": "Register",
     "RelativePath": "api/Account/register",
     "HttpMethod": "POST",
@@ -110,6 +120,23 @@
       }
     ],
     "ReturnTypes": []
+  },
+  {
+    "ContainingType": "classroomApi.Controllers.CourseController",
+    "Method": "JoinCourse",
+    "RelativePath": "api/Course/join/{courseCode}",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "courseCode",
+        "Type": "System.String",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [],
+    "EndpointName": "JoinCourse"
   },
   {
     "ContainingType": "classroomApi.Controllers.CommentController",

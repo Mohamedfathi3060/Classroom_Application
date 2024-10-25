@@ -45,11 +45,11 @@ namespace classroomApi.Controllers
                 }
                 else
                 {
-                    return BadRequest(new { status = "error" , Message = "email is Already added before" });
+                    return BadRequest(new { status = "error" , Message = "Invalid email or password" });
                 }
             }
 
-            return BadRequest(new { status = "error" , Message = "InvALID DATA" });
+            return BadRequest(new { status = "error" , Message = "Invalid Data" });
         }
 
         [HttpPost("login")]
@@ -77,7 +77,31 @@ namespace classroomApi.Controllers
             return BadRequest(new { status = "error",  Message = ModelState });
         }
 
-        
+        [HttpGet("me")]
+        public async Task<IActionResult> me()
+        {
+            var s_user_id = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+            if (s_user_id == null)
+            {
+                return BadRequest(new
+                {
+                    id = s_user_id,
+                    messaage = "wrong token"
+                });
+            }
+            //int UserId = int.Parse(s_user_id);
+            var user = await userManager.FindByIdAsync(s_user_id);
+            if (user == null)
+            {
+                return Unauthorized(new { status = "error", Message = "Invalid email or password." });
+            }
+            return Ok(new { 
+                status = "success",
+                user_first_name = user.FirstName ,
+                user_last_name  = user.LastName,
+                user_email = user.Email
+            });
+        }
 
         // CREATE JWT TOKEN
         private async Task<string> GenerateJwtToken(User user)
