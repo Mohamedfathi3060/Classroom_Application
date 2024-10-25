@@ -159,7 +159,7 @@ document.addEventListener("DOMContentLoaded", function () {
       img.alt = `Placeholder Image ${i}`;
       // Add click event to title for redirection
       img.addEventListener("click", () => {
-        window.location.href = "../HTML/CoursePage.html";
+        window.location.href = `../HTML/CoursePage.html?id=${res.data[i].course_id}`;
       });
       const titleElement = res.data[i].course_Title;
       courses.push(res.data[i]);
@@ -167,7 +167,7 @@ document.addEventListener("DOMContentLoaded", function () {
       title.textContent = titleElement;
       // Add click event to title for redirection
       title.addEventListener("click", () => {
-        window.location.href = "../HTML/CoursePage.html";
+        window.location.href = `../HTML/CoursePage.html?id=${res.data[i].course_id}`;
       });
       const description = document.createElement("p");
       description.textContent = res.data[i].course_description;
@@ -197,7 +197,7 @@ document.addEventListener("DOMContentLoaded", function () {
       submenuItem.classList.add("submenu-item");
       //Add click event to submenu title for redirection
       submenuItem.addEventListener("click", () => {
-        window.location.href = "../HTML/CoursePage.html";
+        window.location.href = `../HTML/CoursePage.html?id=${course.course_id}`;
       });
       const submenuIcon = document.createElement("div");
       submenuIcon.classList.add("submenu-icon");
@@ -218,6 +218,8 @@ document.addEventListener("DOMContentLoaded", function () {
         submenuEnrolledContainer.appendChild(submenuItem);
       }
     });
+
+    changeFirstChar();
   }
 
   sidebar.classList.add("collapsed");
@@ -286,8 +288,9 @@ document.addEventListener("DOMContentLoaded", function () {
   });
 });
 // Handle submenu item icons (on page load)
-document.addEventListener("DOMContentLoaded", function () {
+const changeFirstChar = () => {
   document.querySelectorAll(".submenu-item").forEach(function (item) {
+    console.log("--------------------------------------------");
     const titleElement = item.querySelector(".submenu-title");
     const iconElement = item.querySelector(".submenu-icon");
 
@@ -299,7 +302,7 @@ document.addEventListener("DOMContentLoaded", function () {
       }
     }
   });
-});
+};
 // Selecting elements
 const profilePic = document.querySelector(".accpfp");
 const dropdown = document.getElementById("profileDropdown");
