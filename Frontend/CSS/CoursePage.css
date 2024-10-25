@@ -465,7 +465,6 @@ object-fit: cover;
   background-color: #d4d4d4;
   margin: 2px 0;
 }
-
 /* Reset CSS to remove any default padding/margins */
 * {
   margin: 0;
@@ -740,11 +739,36 @@ object-fit: cover;
   font-weight: normal;
 }
 
-.course-code{
+.course-code {
   margin-top: 100px;
-  font-size: 1rem; /* Adjust font size if necessary */
+  font-size: 1rem; 
   font-weight: normal;
   cursor: pointer;
+  position: relative; /* For tooltip positioning */
+}
+
+/* Tooltip styling */
+.course-code::after {
+  content: "Click to copy to clipboard";
+  position: absolute;
+  top: -30px; /* Place above the course code text */
+  left: 70px;
+  transform: translateX(-50%);
+  background-color: rgba(0, 0, 0, 0.8);
+  color: white;
+  padding: 5px 8px;
+  border-radius: 4px;
+  font-size: 0.8rem;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s;
+  white-space: nowrap;
+  z-index: 2;
+}
+
+/* Show tooltip on hover */
+.course-code:hover::after {
+  opacity: 1;
 }
 /* Announcement Box */
 .announcement-box {

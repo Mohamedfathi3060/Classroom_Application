@@ -228,7 +228,14 @@ document.addEventListener("DOMContentLoaded", function () {
   toggleBtn.addEventListener("click", function () {
     sidebar.classList.toggle("collapsed");
     updateGridColumns();
-
+    if (sidebar.classList.contains("collapsed")) {
+      gridContainer.classList.add("collapsed");
+      teacherIcon.style.transform = "rotate(0deg)";
+  enrolledSubmenu.classList.remove("open");
+  enrolledIcon.style.transform = "rotate(0deg)";
+    } else {
+      gridContainer.classList.remove("collapsed");
+    }
     isToggledOpen = !sidebar.classList.contains("collapsed");
     this.textContent = sidebar.classList.contains("collapsed") ? "☰" : "✖";
   });
@@ -246,11 +253,14 @@ document.addEventListener("DOMContentLoaded", function () {
     clearTimeout(hoverTimeout);
     if (!isToggledOpen) {
       sidebar.classList.add("collapsed");
+      teacherIcon.style.transform = "rotate(0deg)";
+  enrolledSubmenu.classList.remove("open");
+  enrolledIcon.style.transform = "rotate(0deg)";
       updateGridColumns();
     }
   });
 
-  generateGridItems();
+ generateGridItems();
 });
 
 document.addEventListener("DOMContentLoaded", function () {
@@ -284,7 +294,7 @@ document.addEventListener("DOMContentLoaded", function () {
     alert("Redirect to Register Page");
     localStorage.removeItem("isLoggedIn");
     // Redirect to login page or refresh the current page to show the login modal again
-    window.location("../HTML/Login.html"); // Refresh page to show login modal again
+     location.replace("../HTML/Login.html"); // Refresh page to show login modal again
   });
 });
 // Handle submenu item icons (on page load)

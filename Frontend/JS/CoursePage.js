@@ -20,6 +20,34 @@ const createComment = async function (postID, content) {
     console.error(error.message);
   }
 };
+function generateRandomLetters() {
+  const letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
+  let result = "";
+  for (let i = 0; i < 6; i++) {
+    result += letters.charAt(Math.floor(Math.random() * letters.length));
+  }
+  return result;
+}
+
+function getOrSetRandomLetters() {
+  // Check if random letters are already saved in local storage
+  let savedLetters = localStorage.getItem("courseLetters");
+
+  // If not, generate and save them
+  if (!savedLetters) {
+    savedLetters = generateRandomLetters();
+    localStorage.setItem("courseLetters", savedLetters);
+  }
+
+  return savedLetters;
+}
+
+function formatCourseId(id) {
+  // Add a leading zero if `id` is a single digit
+  return id.toString().length === 1 ? `0${id}` : id.toString();
+}
+
+
 function generateGridItems() {
   const numberOfItems = POSTS.length;
   // TODO FETCH USER COURSES
@@ -30,6 +58,9 @@ function generateGridItems() {
     COURSE.Title.charAt(0).toUpperCase() + COURSE.Title.slice(1);
   document.querySelector(".course-teacher").innerHTML =
     COURSE.Teacher.FirstName + " " + COURSE.Teacher.LastName;
+    // Display the course code
+document.querySelector(".course-code").innerHTML =
+`Nendak${formatCourseId(COURSE.Id)}`;
   const postContainer = document.querySelector(".post-container"); // Ensure this container exists
 
   for (let i = 0; i < numberOfItems; i++) {
@@ -37,7 +68,6 @@ function generateGridItems() {
     postitem.classList.add("post-item");
     const authorIcon = document.createElement("div");
     authorIcon.classList.add("author-icon");
-
     // Create post-header section
     const postHeader = document.createElement("div");
     postHeader.classList.add("post-header");
@@ -48,6 +78,11 @@ function generateGridItems() {
     postAuthor.classList.add("post-author");
     postAuthor.textContent = POSTS[i].post_direct_pub.user_name;
 
+    const title = postAuthor.textContent.trim();
+    if (title.length > 0) {
+      authorIcon.textContent = title.charAt(0).toUpperCase(); // Get the first letter of the title
+    }
+    
     const postDate = document.createElement("span");
     postDate.classList.add("post-date");
     postDate.textContent = new Date(POSTS[i].post_createAt).toDateString();
@@ -250,6 +285,17 @@ finalcreateClassBtn.onclick = async () => {
   }
   location.reload();
 };
+const code = document.getElementById("courseCode");
+
+code.onclick = async () => {
+  try {
+    const text = code.textContent; // Retrieve the text inside the h2
+    await navigator.clipboard.writeText(text);
+    console.log("Text copied to clipboard:", text);
+  } catch (err) {
+    console.error("Failed to copy text: ", err);
+  }
+};
 
 var finalJoinClassBtn = document.getElementsByClassName("join-btn")[0];
 finalJoinClassBtn.onclick = async () => {
@@ -448,6 +494,9 @@ document.addEventListener("DOMContentLoaded", function () {
     updateGridColumns();
     if (sidebar.classList.contains("collapsed")) {
       gridContainer.classList.add("collapsed");
+      teacherIcon.style.transform = "rotate(0deg)";
+  enrolledSubmenu.classList.remove("open");
+  enrolledIcon.style.transform = "rotate(0deg)";
     } else {
       gridContainer.classList.remove("collapsed");
     }
@@ -468,6 +517,9 @@ document.addEventListener("DOMContentLoaded", function () {
     clearTimeout(hoverTimeout);
     if (!isToggledOpen) {
       sidebar.classList.add("collapsed");
+      teacherIcon.style.transform = "rotate(0deg)";
+  enrolledSubmenu.classList.remove("open");
+  enrolledIcon.style.transform = "rotate(0deg)";
       updateGridColumns();
     }
   });
@@ -504,7 +556,7 @@ document.addEventListener("DOMContentLoaded", function () {
     alert("Redirect to Register Page");
     localStorage.removeItem("token");
     // Redirect to login page or refresh the current page to show the login modal again
-    window.location("../HTML/Login.html"); // Refresh page to show login modal again
+    location.replace("../HTML/Login.html"); // Refresh page to show login modal again
   });
 });
 // Handle submenu item icons (on page load)
@@ -591,22 +643,6 @@ enrolledHeader.addEventListener("click", () => {
   enrolledIcon.style.transform = enrolledSubmenu.classList.contains("open")
     ? "rotate(90deg)"
     : "rotate(0deg)";
-});
-document.addEventListener("DOMContentLoaded", function () {
-  document.querySelectorAll(".post-item").forEach(function (item) {
-    const titleElement = item.querySelector(".post-author");
-    const iconElement = item.querySelector(".author-icon");
-    const commentAuthor = item.querySelector(".comment-author");
-    const commentorIcon = item.querySelector(".commentor-icon");
-
-    // Make sure both title and icon elements exist
-    if (titleElement && iconElement) {
-      const title = titleElement.textContent.trim();
-      if (title.length > 0) {
-        iconElement.textContent = title.charAt(0).toUpperCase(); // Get the first letter of the title
-      }
-    }
-  });
 });
 
 const createPost = async function (content) {
