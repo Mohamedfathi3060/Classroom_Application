@@ -170,16 +170,16 @@ function generateGridItems() {
 
   // Call other functions with the generated titles
   // TODO generateSubmenuItems(titles);
-  generateCourseimage();
+  // generateCourseimage();
 }
 // CoursePage.js
-function generateCourseimage() {
-  const courseimg = document.getElementById("course-img");
-  const selectedImageIndex = localStorage.getItem("selectedImageIndex");
-  if (selectedImageIndex) {
-    courseimg.src = `/Frontend/Images/Honors.jpg`;
-  }
-}
+// function generateCourseimage() {
+//   const courseimg = document.getElementById("course-img");
+//   const selectedImageIndex = localStorage.getItem("selectedImageIndex");
+//   if (selectedImageIndex) {
+//     courseimg.src = `/Frontend/Images/Honors.jpg`;
+//   }
+// }
 // function generateSubmenuItems(courses, userID) {
 //   const submenuTeacherContainer = sidebar.querySelector(".submenu-teacher"); // Get the teacher submenu container
 //   const submenuEnrolledContainer = sidebar.querySelector(".submenu-enrolled"); // Get the enrolled submenu container
