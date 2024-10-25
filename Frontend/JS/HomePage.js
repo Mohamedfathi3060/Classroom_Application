@@ -405,3 +405,31 @@ finalcreateClassBtn.onclick = async () => {
   }
   location.reload();
 };
+
+var finalJoinClassBtn = document.getElementsByClassName("join-btn")[0];
+finalJoinClassBtn.onclick = async () => {
+  console.log("55555555555555555555");
+  var v = document.getElementsByClassName("join-class-input")[0].value;
+
+  if (v === "") {
+    return;
+  }
+  const url = `http://localhost:5057/api/course/join/${v}`;
+  try {
+    const response = await fetch(url, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: "Bearer " + localStorage.getItem("token"),
+      },
+    });
+    if (!response.ok) {
+      console.log("error");
+      throw new Error(`Response status: ${response.status}`);
+    }
+    console.log("course Joined");
+  } catch (error) {
+    console.error(error.message);
+  }
+  location.reload();
+};

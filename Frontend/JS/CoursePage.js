@@ -170,16 +170,16 @@ function generateGridItems() {
 
   // Call other functions with the generated titles
   // TODO generateSubmenuItems(titles);
-  generateCourseimage();
+  // generateCourseimage();
 }
 // CoursePage.js
-function generateCourseimage() {
-  const courseimg = document.getElementById("course-img");
-  const selectedImageIndex = localStorage.getItem("selectedImageIndex");
-  if (selectedImageIndex) {
-    courseimg.src = `/Frontend/Images/Honors.jpg`;
-  }
-}
+// function generateCourseimage() {
+//   const courseimg = document.getElementById("course-img");
+//   const selectedImageIndex = localStorage.getItem("selectedImageIndex");
+//   if (selectedImageIndex) {
+//     courseimg.src = `/Frontend/Images/Honors.jpg`;
+//   }
+// }
 // function generateSubmenuItems(courses, userID) {
 //   const submenuTeacherContainer = sidebar.querySelector(".submenu-teacher"); // Get the teacher submenu container
 //   const submenuEnrolledContainer = sidebar.querySelector(".submenu-enrolled"); // Get the enrolled submenu container
@@ -244,6 +244,34 @@ finalcreateClassBtn.onclick = async () => {
       throw new Error(`Response status: ${response.status}`);
     }
     console.log("course created");
+  } catch (error) {
+    console.error(error.message);
+  }
+  location.reload();
+};
+
+var finalJoinClassBtn = document.getElementsByClassName("join-btn")[0];
+finalJoinClassBtn.onclick = async () => {
+  console.log("55555555555555555555");
+  var v = document.getElementsByClassName("join-class-input")[0].value;
+
+  if (v === "") {
+    return;
+  }
+  const url = `http://localhost:5057/api/course/join/${v}`;
+  try {
+    const response = await fetch(url, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: "Bearer " + localStorage.getItem("token"),
+      },
+    });
+    if (!response.ok) {
+      console.log("error");
+      throw new Error(`Response status: ${response.status}`);
+    }
+    console.log("course Joined");
   } catch (error) {
     console.error(error.message);
   }
