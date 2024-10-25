@@ -108,7 +108,26 @@ button.join-btn:hover, button.create-btn:hover {
 .new-modal.show {
     display: flex;
 }
-
+.form-container {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .form-row {
+    margin-top: 10px;
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+  }
+  
+  .form-row label {
+    width: 45%; /* Adjust this to control the width of each column */
+  }
+  .form-row input {
+    width: 55%; /* Adjust this to control the width of each column */
+    height: 20px;
+  }
+  
 /* General Styles */
 /* Body Styling */
 body {

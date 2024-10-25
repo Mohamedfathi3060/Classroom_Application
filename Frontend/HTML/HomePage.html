@@ -84,16 +84,18 @@
         <div id="createClassModal" class="new-modal">
           <div class="new-modal-content">
             <span class="new-close" id="closeCreateClass">&times;</span>
-            <h2>Create Class</h2>
-            <label for="className">Enter Class Name:</label>
-            <input
-              type="text"
-              id="className"
-              class="create-class-input"
-              name="className"
-              required
-            />
-            <button class="create-btn">Create</button>
+             <h2>Create Class</h2>
+             <div class="form-container">
+                <div class="form-row">
+                  <label for="className">Class Name:</label>
+                  <input type="text" id="className" class="create-class-input" name="className" required>
+                </div>
+                <div class="form-row">
+                  <label for="classDescription">Class Description:</label>
+                  <input type="text" id="classDescription" class="create-class-input" name="classDescription" required>
+                </div>
+              </div>
+                 <button class="create-btn">Create</button>
           </div>
         </div>
       </div>
