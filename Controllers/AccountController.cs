@@ -98,7 +98,7 @@ namespace classroomApi.Controllers
                 issuer: iconfig["JwtSettings:Issuer"],
                 audience: iconfig["JwtSettings:Audience"],
                 claims: claims,
-                expires: DateTime.Now.AddHours(1),
+                expires: DateTime.Now.AddHours(24),
                 signingCredentials: creds
             );
 

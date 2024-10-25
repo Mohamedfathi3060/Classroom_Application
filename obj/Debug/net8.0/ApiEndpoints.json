@@ -43,7 +43,7 @@
   },
   {
     "ContainingType": "classroomApi.Controllers.CourseController",
-    "Method": "createCourse",
+    "Method": "CreateCourse",
     "RelativePath": "api/Course",
     "HttpMethod": "POST",
     "IsController": true,

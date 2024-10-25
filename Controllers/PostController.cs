@@ -25,6 +25,22 @@ namespace classroomApi.Controllers
             // check User is subscriped here in this course
 
             // Query DB to get courses
+            //var Data = (from posts in DB.Posts
+            //            where posts.CourseId == courseID
+            //            select new
+            //            {
+            //                post_id = posts.Id,
+            //                post_course_id = posts.CourseId,
+            //                post_createAt = posts.CreatedAt,
+            //                post_last_update = posts.UpdatedAt,
+            //                post_content = posts.Content,
+            //                post_direct_pub = new
+            //                {
+            //                    user_id = posts.User.Id,
+            //                    user_name = posts.User.FirstName +" "+ posts.User.LastName,
+            //                    user_email = posts.User.Email,
+            //                }
+            //            });
             var Data = (from posts in DB.Posts
                         where posts.CourseId == courseID
                         select new
@@ -37,10 +53,20 @@ namespace classroomApi.Controllers
                             post_direct_pub = new
                             {
                                 user_id = posts.User.Id,
-                                user_name = posts.User.FirstName +" "+ posts.User.LastName,
+                                user_name = posts.User.FirstName + " " + posts.User.LastName,
                                 user_email = posts.User.Email,
-                            }
+                            },
+                            comments = posts.Comments.Select(c => new
+                            {
+                                comment_id = c.Id,
+                                comment_content = c.Content,
+                                comment_createdAt = c.CreatedAt,
+                                comment_author_id = c.User.Id,
+                                comment_author_image = c.User.Image,
+                                comment_author_name = c.User.FirstName + " " + c.User.LastName,
+                            }).ToList()
                         });
+
 
             if (Data.IsNullOrEmpty())
             {

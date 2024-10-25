@@ -9,7 +9,6 @@ namespace Classroom.Models
         
 
         public int Id { get; set; }
-        [Required]
         public string? Image { get; set; }
         [ForeignKey("User")]
         public int? TeacherId { get; set; }

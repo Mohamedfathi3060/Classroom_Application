@@ -3,6 +3,10 @@
   "WorkspaceRootPath": "M:\\c# library\\classroomApi\\",
   "Documents": [
     {
+      "AbsoluteMoniker": "D:0:0:{A0F6F2F2-19E6-4653-B38E-0B9EC29A2D6D}|classroomApi.csproj|m:\\c# library\\classroomapi\\models\\applicationdb.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A0F6F2F2-19E6-4653-B38E-0B9EC29A2D6D}|classroomApi.csproj|solutionrelative:models\\applicationdb.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{A0F6F2F2-19E6-4653-B38E-0B9EC29A2D6D}|classroomApi.csproj|m:\\c# library\\classroomapi\\controllers\\coursecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{A0F6F2F2-19E6-4653-B38E-0B9EC29A2D6D}|classroomApi.csproj|solutionrelative:controllers\\coursecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
@@ -11,16 +15,8 @@
       "RelativeMoniker": "D:0:0:{A0F6F2F2-19E6-4653-B38E-0B9EC29A2D6D}|classroomApi.csproj|solutionrelative:models\\course.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{A0F6F2F2-19E6-4653-B38E-0B9EC29A2D6D}|classroomApi.csproj|m:\\c# library\\classroomapi\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{A0F6F2F2-19E6-4653-B38E-0B9EC29A2D6D}|classroomApi.csproj|solutionrelative:program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{A0F6F2F2-19E6-4653-B38E-0B9EC29A2D6D}|classroomApi.csproj|m:\\c# library\\classroomapi\\controllers\\accountcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{A0F6F2F2-19E6-4653-B38E-0B9EC29A2D6D}|classroomApi.csproj|solutionrelative:controllers\\accountcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{A0F6F2F2-19E6-4653-B38E-0B9EC29A2D6D}|classroomApi.csproj|m:\\c# library\\classroomapi\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
-      "RelativeMoniker": "D:0:0:{A0F6F2F2-19E6-4653-B38E-0B9EC29A2D6D}|classroomApi.csproj|solutionrelative:appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
+      "AbsoluteMoniker": "D:0:0:{A0F6F2F2-19E6-4653-B38E-0B9EC29A2D6D}|classroomApi.csproj|m:\\c# library\\classroomapi\\models\\courseenrollment.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A0F6F2F2-19E6-4653-B38E-0B9EC29A2D6D}|classroomApi.csproj|solutionrelative:models\\courseenrollment.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -30,69 +26,58 @@
       "DocumentGroups": [
         {
           "DockedHeight": 200,
-          "SelectedChildIndex": 1,
+          "SelectedChildIndex": 0,
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 0,
+              "Title": "ApplicationDB.cs",
+              "DocumentMoniker": "M:\\c# library\\classroomApi\\Models\\ApplicationDB.cs",
+              "RelativeDocumentMoniker": "Models\\ApplicationDB.cs",
+              "ToolTip": "M:\\c# library\\classroomApi\\Models\\ApplicationDB.cs",
+              "RelativeToolTip": "Models\\ApplicationDB.cs",
+              "ViewState": "AgIAAAwAAAAAAAAAAAAuwBYAAAAJAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-10-24T21:40:51.204Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
               "Title": "Course.cs",
               "DocumentMoniker": "M:\\c# library\\classroomApi\\Models\\Course.cs",
               "RelativeDocumentMoniker": "Models\\Course.cs",
               "ToolTip": "M:\\c# library\\classroomApi\\Models\\Course.cs",
               "RelativeToolTip": "Models\\Course.cs",
-              "ViewState": "AgIAABMAAAAAAAAAAAAkwBwAAAAIAAAAAAAAAA==",
+              "ViewState": "AgIAAAgAAAAAAAAAAAAAwAwAAAAcAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-10-22T21:17:29.788Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 0,
-              "Title": "CourseController.cs",
-              "DocumentMoniker": "M:\\c# library\\classroomApi\\Controllers\\CourseController.cs",
-              "RelativeDocumentMoniker": "Controllers\\CourseController.cs",
-              "ToolTip": "M:\\c# library\\classroomApi\\Controllers\\CourseController.cs",
-              "RelativeToolTip": "Controllers\\CourseController.cs",
-              "ViewState": "AgIAAEEAAAAAAAAAAAAiwEcAAAAUAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-10-22T16:28:46.182Z",
+              "WhenOpened": "2024-10-24T20:43:35.231Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 3,
-              "Title": "AccountController.cs",
-              "DocumentMoniker": "M:\\c# library\\classroomApi\\Controllers\\AccountController.cs",
-              "RelativeDocumentMoniker": "Controllers\\AccountController.cs",
-              "ToolTip": "M:\\c# library\\classroomApi\\Controllers\\AccountController.cs",
-              "RelativeToolTip": "Controllers\\AccountController.cs",
-              "ViewState": "AgIAACEAAAAAAAAAAIAwwCgAAAAQAAAAAAAAAA==",
+              "Title": "CourseEnrollment.cs",
+              "DocumentMoniker": "M:\\c# library\\classroomApi\\Models\\CourseEnrollment.cs",
+              "RelativeDocumentMoniker": "Models\\CourseEnrollment.cs",
+              "ToolTip": "M:\\c# library\\classroomApi\\Models\\CourseEnrollment.cs",
+              "RelativeToolTip": "Models\\CourseEnrollment.cs",
+              "ViewState": "AgIAAAUAAAAAAAAAAAAxwA4AAAAoAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-10-22T15:09:04.159Z"
+              "WhenOpened": "2024-10-24T20:39:43.176Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 4,
-              "Title": "appsettings.json",
-              "DocumentMoniker": "M:\\c# library\\classroomApi\\appsettings.json",
-              "RelativeDocumentMoniker": "appsettings.json",
-              "ToolTip": "M:\\c# library\\classroomApi\\appsettings.json",
-              "RelativeToolTip": "appsettings.json",
-              "ViewState": "AgIAAAYAAAAAAAAAAAAwwA8AAAAqAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
-              "WhenOpened": "2024-10-22T12:13:52.593Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "Program.cs",
-              "DocumentMoniker": "M:\\c# library\\classroomApi\\Program.cs",
-              "RelativeDocumentMoniker": "Program.cs",
-              "ToolTip": "M:\\c# library\\classroomApi\\Program.cs",
-              "RelativeToolTip": "Program.cs",
-              "ViewState": "AgIAAFIAAAAAAAAAAAAlwGEAAAAMAAAAAAAAAA==",
+              "DocumentIndex": 1,
+              "Title": "CourseController.cs",
+              "DocumentMoniker": "M:\\c# library\\classroomApi\\Controllers\\CourseController.cs",
+              "RelativeDocumentMoniker": "Controllers\\CourseController.cs",
+              "ToolTip": "M:\\c# library\\classroomApi\\Controllers\\CourseController.cs",
+              "RelativeToolTip": "Controllers\\CourseController.cs",
+              "ViewState": "AgIAAAwAAAAAAAAAAAAAAJcAAAANAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-10-12T18:41:21.987Z",
+              "WhenOpened": "2024-10-24T20:27:55.197Z",
               "EditorCaption": ""
             }
           ]

@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Authorization;
 using System.Security.Claims;
 using System.Text.Json.Serialization;
 using System.Text.Json;
+using classroomApi.DTO;
 
 
 namespace classroomApi.Controllers
@@ -68,9 +69,23 @@ namespace classroomApi.Controllers
         {
             // Fetch the course along with its posts and each post's comments
             var course = DB.Courses
-                .Include(c => c.posts)
-                    .ThenInclude(p => p.Comments)
-                .FirstOrDefault(c => c.Id == courseId);
+    .Where(c => c.Id == courseId)
+    .Select(c => new
+    {
+        c.Id,
+        c.Title,
+        c.Description,
+        Teacher = new
+        {
+            c.User.Id,
+            c.User.Image,
+            c.User.FirstName,
+            c.User.LastName,
+            c.User.Email,
+        }
+    })
+    .FirstOrDefault();
+
 
             // Check if the course is found
             if (course == null)
@@ -91,29 +106,51 @@ namespace classroomApi.Controllers
         }
 
         [HttpPost]
-        public IActionResult createCourse([FromBody] Course course)
+        public IActionResult CreateCourse([FromBody] Course course)
         {
-
             if (ModelState.IsValid)
             {
+
+                var s_user_id = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+                if (s_user_id == null)
+                {
+                    return BadRequest(new
+                    {
+                        status = "error",
+                        id = s_user_id,
+                        messaage = "wrong token"
+                    });
+                }
+                int UserId = int.Parse(s_user_id);
+
+
+                course.TeacherId = UserId;
+                if(course.Description == null)
+                {
+                    course.Description = "";
+                }
+                if (course.Image == null)
+                {
+                    course.Image = "http";
+                }
                 DB.Courses.Add(course);
                 DB.SaveChanges();
-                string url = Url.Link("course", new { id = course.Id });
 
-                /* take User ID and add course enrollment record*/
-               /* HERE
-                * 
-                *
-                *
-                *
-                *
-                *
-                */
+                // Create a course enrollment record
+                CourseEnrollment enrollment = new CourseEnrollment
+                {
+                    UserId = UserId,
+                    CourseId = course.Id,
+                    Role = "Teacher",
+                    EnrolledAt = DateTime.Now,
+                };
+                DB.CourseEnrollments.Add(enrollment);
+                DB.SaveChanges();
 
-                return Created(url, course);
+                // Return the created course
+                return Created("", new {message = "course created" });
             }
             return BadRequest(course);
-
         }
 
     }

@@ -20,9 +20,6 @@ namespace Classroom.Models
         {
             base.OnConfiguring(optionsBuilder);
             optionsBuilder.UseSqlServer("Data Source=GaGo;initial catalog=Classroom; integrated security=true; trustservercertificate=true");
-
-
-
         }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
