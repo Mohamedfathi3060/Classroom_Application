@@ -373,3 +373,35 @@ enrolledHeader.addEventListener("click", () => {
     ? "rotate(90deg)"
     : "rotate(0deg)";
 });
+
+var finalcreateClassBtn = document.getElementsByClassName("create-btn")[0];
+finalcreateClassBtn.onclick = async () => {
+  console.log("888888888888888888888888888888888888");
+  var v = document.getElementsByClassName("create-class-input")[0].value;
+
+  if (v === "") {
+    return;
+  }
+  const url = `http://localhost:5057/api/course`;
+  try {
+    const response = await fetch(url, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: "Bearer " + localStorage.getItem("token"),
+      },
+      body: JSON.stringify({
+        title: v,
+        Description: "this is the description",
+      }),
+    });
+    if (!response.ok) {
+      console.log("error");
+      throw new Error(`Response status: ${response.status}`);
+    }
+    console.log("course created");
+  } catch (error) {
+    console.error(error.message);
+  }
+  location.reload();
+};
