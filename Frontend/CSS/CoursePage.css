@@ -727,26 +727,6 @@ object-fit: cover;
   font-weight: normal;
   cursor: pointer;
 }
-.description-box {
-  width: 100%;
-  max-width: 100%; /* Remove cap */
-  margin-top: 20px;
-  margin-bottom: 20px;
-  display: flex;
-  justify-content: center; /* Centers the input horizontally */
-  align-items: center; /* Centers the input vertically if necessary */
-}
-
-/* Announcement Input */
-.description-p {
-  width: 100%;
-  padding: 17px;
-  font-size: 1rem;
-  border: 1px solid #ddd;
-  border-radius: 8px;
-  box-shadow: 0 2px 5px rgba(0.1, 0.1, 0.1, 0.2);
-  cursor: default;
-}
 /* Announcement Box */
 .announcement-box {
   width: 100%;
